@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+	http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<!-- 配置前端控制器(门面模式) -->
+	<servlet>
+		<servlet-name>frontController</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-config/mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+		<multipart-config/>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>frontController</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 指定Spring配置文件的路径-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring-config/app.xml</param-value>
+	</context-param>
+	
+	<!-- 配置启动IoC容器的上下文监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- 
+	<listener>
+		<listener-class>com.qfedu.house.listener.PreLoadDataListener</listener-class>
+	</listener>
+	-->
+	
+	<!-- 编码过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- Open Session In View 过滤器 -->
+	<!-- 这种做法不适合访问量较大或高并发场景 这是一种反模式 -->
+	<!-- 最好的做法是根据需要在业务层强制加载或者通过组装DTO的方式加载数据 -->
+	<!-- 如果要避免1+N查询问题那么需要通过迫切加载的方式拿到需要的数据 -->
+	<!-- 
+	<filter>
+		<filter-name>osiv</filter-name>
+		<filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>osiv</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	-->
+	
+	<!-- <error-page>
+		<error-code>404</error-code>
+		<location>/404.html</location>
+	</error-page> -->
+	
+</web-app>
