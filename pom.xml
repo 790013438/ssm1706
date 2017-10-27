@@ -4,7 +4,7 @@
 		http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.qfedu</groupId>
-	<artifactId>house1706</artifactId>
+	<artifactId>ssm1706</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 
@@ -116,6 +116,12 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.23</version>
 		</dependency>
+		<!-- 日志 -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -125,9 +131,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.0</version>
+				<!-- 
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
+				-->
 			</plugin>
 			<!-- Tomcat插件(可以通过服务器插件部署项目) -->
 			<plugin>

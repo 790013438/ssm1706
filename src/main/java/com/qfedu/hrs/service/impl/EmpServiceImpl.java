@@ -1,6 +1,5 @@
 package com.qfedu.hrs.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.qfedu.hrs.domain.Dept;
 import com.qfedu.hrs.domain.Emp;
-import com.qfedu.hrs.dto.EmpDto;
 import com.qfedu.hrs.mapper.EmpMapper;
 import com.qfedu.hrs.service.EmpService;
 import com.qfedu.hrs.util.PageBean;
@@ -31,14 +29,11 @@ public class EmpServiceImpl implements EmpService {
 	}
 	
 	@Override
-	public PageBean<EmpDto> listAllEmpsByDept(Dept dept, int page, int size) {
-		PageBean<Emp> pageBean = empMapper.findEmpsByDept(dept, page, size);
-		List<Emp> empList = pageBean.getDataModel();
-		List<EmpDto> empDtoList = new ArrayList<>();
-		for (Emp emp : empList) {
-			empDtoList.add(new EmpDto(emp));
-		}
-		return new PageBean<>(empDtoList, pageBean.getTotalPage(), pageBean.getCurrentPage(), pageBean.getPageSize());
+	public PageBean<Emp> listAllEmpsByDept(Dept dept, int page, int size) {
+		List<Emp> dataModel = empMapper.findEmpsByDept(dept, (page - 1) * size, size);
+		int total = empMapper.countEmpsByDept(dept);
+		int totalPage = (total - 1) / size + 1;
+		return new PageBean<>(dataModel, totalPage, page, size);
 	}
 
 	@Override
