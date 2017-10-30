@@ -2,6 +2,7 @@ package com.qfedu.hrs.service;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.qfedu.hrs.domain.Dept;
-import org.junit.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:app.xml")
@@ -17,6 +17,13 @@ public class DeptServiceTest {
 
 	@Autowired
 	private DeptService deptService;
+	
+	@Test
+	public void testGetAverageSalaryByDept() {
+		Dept dept = new Dept();
+		dept.setName("¸ãÊÂ²¿");
+		System.out.println(deptService.getAverageSalaryByDept(dept));
+	}
 	
 	@Test
 	public void testGetDeptByNo() {

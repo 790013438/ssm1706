@@ -11,6 +11,8 @@ import com.qfedu.hrs.domain.Dept;
  */
 public interface DeptService {
 	
+	double getAverageSalaryByDept(Dept dept);
+	
 	/**
 	 * 添加新部门
 	 * @param dept 部门对象

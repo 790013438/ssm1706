@@ -8,6 +8,13 @@
 		<result property="name" column="dname"/>
 		<result property="location" column="dloc"/>
 	</resultMap>
+	
+	<select id="findAverageSalary" statementType="CALLABLE">
+		{call sp_getAvgSal(
+			#{name, jdbcType=VARCHAR, mode=IN}, 
+			#{avgSal, jdbcType=DOUBLE, mode=OUT}
+		)}
+	</select>
 		
 	<select id="findById" resultMap="deptResultMap">
 		select dno, dname, dloc 
